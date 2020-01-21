@@ -1,0 +1,130 @@
+# Convertisseur décimal/binaire/hexadécimal
+
+# Création du menu de sélection pour l'utilisateur
+import math
+
+# Boucle sur le menu
+choix = "z"
+while choix != "Q" and choix != "q":
+
+    # Affichage du menu
+    print("Conversion DECIMALE vers BINAIRE ........ 1")
+    print("Conversion BINAIRE vers DECIMALE ........ 2")
+    print("Conversion DECIMALE vers HEXADECIMALE.....3")
+    print("Conversion BINAIRE vers HEXADECIMALE......4")
+    print("Conversion HEXADECIMALE vers DECIMALE.....5")
+    print("Conversion HEXADECIMALE vers BINAIRE......6")
+    print("quitter ..................................Q")
+    choix = input("Votre choix .............................. ")
+    if choix == "1":
+        # Conversion DECIMALE vers BINAIRE
+        nb = int(input("Entrer un nombre DECIMALE: "))
+        binaire = ""
+        while nb != 0:
+            r = str(nb % 2)
+            binaire = r + binaire
+            nb = nb // 2
+        print("Conversion du nombre DECIMALE en BINAIRE: ", binaire)
+    else:
+        if choix == "2":
+            # Conversion BINAIRE vers DECIMALE
+            binaire = input("Entrer un nombre BINAIRE: ")
+            p = 0
+            nb = 0
+            while len(binaire) > 0:
+                b = int(binaire[len(binaire) - 1:])
+                nb += b * math.pow(2, p)
+                p += 1
+                binaire = binaire[: len(binaire) - 1]
+
+            print("Converison du nombre BINAIRE en DECIMALE: ", nb)
+
+    if choix == "3":
+        # Conversion DECIMALE vers HEXADECIMALE
+        nb = int(input("Entrer un nombre DECIMALE: "))
+        hexa = ""
+        while nb != 0:
+            r = int(nb % 16)
+            hexa = hexa + str(r)
+            nb = nb // 16
+            if (r < 10):
+                print(str(r))
+            elif (r == 10):
+                print("A")
+            elif (r == 11):
+                print("B")
+            elif (r == 12):
+                print("C")
+            elif (r == 13):
+                print("D")
+            elif (r == 14):
+                print("E")
+            elif (r == 15):
+                print("F")
+
+        print("Conversion du nombre DECIMALE en HEXADECIMALE: ", hexa)
+
+    if choix == "4":
+        def binaryToDecimalConvert(array):
+            decimal = 0
+            power = len(array) - 1
+
+            for item in array:
+                decimal += (2 ** power) * item
+                power -= 1
+            return decimal
+
+        # Conversion BINAIRE vers HEXADECIMALE
+        # Transformer le nombre binaire en chaine de charactere
+        def main():
+            binary = []
+            number = input("Entrer un nombre BINAIRE:")
+            for item in number:
+                binary.append(int(item))
+            print("Le nombre binaire est:" + str(binary))
+
+
+            # Regarder si le chiffre est divisible par 4
+            if ((len(binary) % 4) == 1):
+                for index in range(0, 3):
+                    binary.insert(0, 0)
+            elif ((len(binary) % 4) == 2):
+                for index in range(0, 2):
+                    binary.insert(0, 0)
+            elif ((len(binary) % 4) == 3):
+                for index in range(0, 1):
+                    binary.insert(0, 0)
+
+            print("Maintenant Le nombre binaire est:" + str(binary))
+            print()
+            number_holder =[]
+            decimal_set = []
+            hex_number = ""
+
+            while (len(binary) != 0):
+                for index in range(0,4):
+                    number_holder.append(binary.pop(0))
+                decimal_set.append(binaryToDecimalConvert(number_holder))
+                number_holder = []
+
+                print("Current set of decimals: " + str(decimal_set))
+
+            for index in decimal_set:
+                if (index == 10):
+                    hex_number += "A"
+                elif (index == 11):
+                    hex_number += "B"
+                elif (index == 12):
+                    hex_number += "C"
+                elif (index == 13):
+                    hex_number += "D"
+                elif (index == 14):
+                    hex_number += "E"
+                elif (index == 15):
+                    hex_number += "F"
+                else:
+                    hex_number += str(index)
+            print()
+            print("Le nombre converti en Hexadécimal est:" + str(hex_number))
+
+        main()
